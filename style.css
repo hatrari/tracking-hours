@@ -1,4 +1,4 @@
-#container {
+#hours-container {
   display: flex;
 }
 
@@ -14,4 +14,11 @@
   margin: 2px;
   border-radius: 2px;
   background: white;
+}
+
+#add-one-day {
+  border: 1px solid black;
+  padding: 0px 3px;
+  border-radius: 3px;
+  cursor: pointer;
 }

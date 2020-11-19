@@ -16,10 +16,10 @@ function renderHourTemplate(hour) {
   `;
 }
 
-let container = document.getElementById('container');
+let hoursContainer = document.getElementById('hours-container');
 
 for(let i=0; i<24; i++) {
-  container.innerHTML += renderHourTemplate(i);
+  hoursContainer.innerHTML += renderHourTemplate(i);
 }
 
 function switchColor(div) {
@@ -41,3 +41,34 @@ function addClickEventToHourBox() {
 }
 
 document.addEventListener('DOMContentLoaded', addClickEventToHourBox);
+
+function formatDate(date) {
+  let year = date.getFullYear();
+  let month = parseInt(date.getMonth()) + 1;
+  let day = date.getDate();
+  return `${day}/${month}/${year}`;
+}
+
+function parseDate(date) {
+  let dateArray = date.split('/');
+  return {day: dateArray[0], month: dateArray[1], year: dateArray[2]};
+}
+
+function addOneDay(date) {
+  let dateJson = parseDate(date);
+  let newDate = new Date(`${dateJson.year}-${dateJson.month}-${dateJson.day}`);
+  let day = newDate.getDate();
+  newDate.setDate(day + 1);
+  return newDate;
+}
+
+document.getElementById('date-container').innerHTML = `
+  <span id="current-date">${formatDate(new Date())}</span> 
+  <button id="add-one-day">+</button>
+`;
+
+document.getElementById('add-one-day').addEventListener('click', function() {
+  let currentDate = document.getElementById('current-date');
+  let newDate = addOneDay(currentDate.innerText);
+  currentDate.innerText = formatDate(newDate);
+});
