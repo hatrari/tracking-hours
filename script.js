@@ -3,15 +3,16 @@ function renderHourDigit(hour) {
 }
 
 function renderHourTemplate(hour) {
+  let twoDigitHour = renderHourDigit(hour);
   return `
     <div class="hour">
-      <div class="hour-label">${renderHourDigit(hour)}</div>
-      <div class="hour-box"></div>
-      <div class="hour-box"></div>
-      <div class="hour-box"></div>
-      <div class="hour-box"></div>
-      <div class="hour-box"></div>
-      <div class="hour-box"></div>
+      <div class="hour-label">${twoDigitHour}</div>
+      <div id="0-${twoDigitHour}" class="hour-box"></div>
+      <div id="1-${twoDigitHour}" class="hour-box"></div>
+      <div id="2-${twoDigitHour}" class="hour-box"></div>
+      <div id="3-${twoDigitHour}" class="hour-box"></div>
+      <div id="4-${twoDigitHour}" class="hour-box"></div>
+      <div id="5-${twoDigitHour}" class="hour-box"></div>
     </div>
   `;
 }
@@ -32,11 +33,27 @@ function switchColor(div) {
   div.style.background = background;
 }
 
+let storage = [];
+function hourBoxClickHandler(div) {
+  switchColor(div);
+  let data = {
+    hour: div.id.split('-')[1],
+    block: div.id.split('-')[0],
+    color: div.style.background,
+    date: document.getElementById('current-date').innerText
+  };
+  let filtredStorage = storage.filter(
+    item => !(item.hour === data.hour && item.block === data.block)
+  );
+  storage = [...filtredStorage, data];
+  console.log(storage);
+}
+
 function addClickEventToHourBox() {
   let divs = document.querySelectorAll('.hour-box');
   divs.forEach(
     item => 
-    item.addEventListener('click', () => switchColor(item))
+    item.addEventListener('click', () => hourBoxClickHandler(item))
   );
 }
 
