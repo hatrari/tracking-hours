@@ -87,11 +87,7 @@ function substractOneDay(date) {
   return newDate;
 }
 
-document.getElementById('date-container').innerHTML = `
-  <button id="substract-one-day">-</button>
-  <span id="current-date">${formatDate(new Date())}</span> 
-  <button id="add-one-day">+</button>
-`;
+document.getElementById('current-date').innerHTML = formatDate(new Date());
 
 document.getElementById('add-one-day').addEventListener('click', function() {
   let currentDate = document.getElementById('current-date');
