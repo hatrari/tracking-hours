@@ -33,7 +33,13 @@ function switchColor(div) {
   div.style.background = background;
 }
 
+
 let storage = [];
+
+if(localStorage.key('data')) {
+  storage = JSON.parse(localStorage.getItem('data'));
+}
+
 function hourBoxClickHandler(div) {
   switchColor(div);
   let data = {
@@ -45,8 +51,12 @@ function hourBoxClickHandler(div) {
   let filtredStorage = storage.filter(
     item => !(item.hour === data.hour && item.block === data.block)
   );
-  storage = [...filtredStorage, data];
-  console.log(storage);
+  storage = [...filtredStorage];
+  if(data.color !== 'white') {
+    storage.push(data);
+  }
+  localStorage.setItem('data', JSON.stringify(storage));
+  console.log(localStorage.getItem('data'));
 }
 
 function addClickEventToHourBox() {
