@@ -7,13 +7,10 @@ function init() {
     let currentDate = document.getElementById('current-date');
     let newDate = addOneDay(currentDate.innerText);
     currentDate.innerText = formatDate(newDate);
+    getData();
   });
 
-  document.getElementById('substract-one-day').addEventListener('click', function() {
-    let currentDate = document.getElementById('current-date');
-    let newDate = substractOneDay(currentDate.innerText);
-    currentDate.innerText = formatDate(newDate);
-  });
+  document.getElementById('substract-one-day').addEventListener('click', substractClickHandler);
 
   let hoursContainer = document.getElementById('hours-container');
 
@@ -21,7 +18,16 @@ function init() {
     hoursContainer.innerHTML += renderHourTemplate(i);
   }
 
+  getData();
+
   addClickEventToHourBox();
+}
+
+function substractClickHandler() {
+  let currentDate = document.getElementById('current-date');
+  let newDate = substractOneDay(currentDate.innerText);
+  currentDate.innerText = formatDate(newDate);
+  getData();
 }
 
 function formatDate(date) {
@@ -71,6 +77,22 @@ function renderHourDigit(hour) {
   return `0${hour}`.slice(-2);
 }
 
+function getData() {
+  if (localStorage.key('data')) {
+    let data = localStorage.getItem('data');
+    data = JSON.parse(data);
+    data.forEach(item => {
+      let id = `${item.block}-${item.hour}`;
+      let currentDate = document.getElementById('current-date').innerText;
+      if  (item.date === currentDate) {
+        document.getElementById(id).style.background = item.color;
+      } else {
+        document.getElementById(id).style.background = 'white';
+      }
+    });
+  }
+}
+
 function addClickEventToHourBox() {
   let divs = document.querySelectorAll('.hour-box');
   divs.forEach(
@@ -114,5 +136,4 @@ function setData(hourBoxData) {
     storage.push(hourBoxData);
   }
   localStorage.setItem('data', JSON.stringify(storage));
-  console.log(localStorage.getItem('data'));
 }
