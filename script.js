@@ -116,8 +116,10 @@ function switchColor(div) {
   let background = div.style.background;
   if(background === 'white' || background === '') {
     background = 'grey'
+  } else if (background === 'grey') {
+    background = 'silver';
   } else {
-    background = 'white'
+    background = 'white';
   }
   div.style.background = background;
 }

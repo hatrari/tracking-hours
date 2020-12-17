@@ -1,31 +1,60 @@
+body {
+  font-family: sans-serif;
+}
+
+h1 {
+  font-size: 50px;
+  margin-bottom: 60px;
+}
+
+#container {
+  display: flex;
+  justify-content: center;
+}
+
+#date-container {
+  display: flex;
+  margin: 20px 0px;
+  font-size: 35px;
+  justify-content: center;
+}
+
 #hours-container {
   display: flex;
 }
 
 .hour-label {
+  font-size: 25px;
   margin: 2px;
   text-align: center;
 }
 
 .hour-box {
   border: 1px solid black;
-  width: 20px;
-  height: 20px;
-  margin: 2px;
-  border-radius: 2px;
+  width: 30px;
+  height: 30px;
+  margin: 3px;
+  border-radius: 5px;
   background: white;
+  transition: 0.5s;
 }
 
 #add-one-day {
-  border: 1px solid black;
-  padding: 0px 3px;
-  border-radius: 3px;
-  cursor: pointer;
+  padding: 0px 10px;
 }
 
-#substract-one-day {
+#substract-one-day{
+  padding: 0px 14px;
+}
+
+.span-button {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
   border: 1px solid black;
-  padding: 1px 6px;
+  padding: 0px 14px;
   border-radius: 3px;
   cursor: pointer;
+  margin: 0px 5px;
+  font-weight: bolder;
 }
