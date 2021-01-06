@@ -78,7 +78,6 @@ function renderHourDigit(hour) {
 }
 
 function getData() {
-  /*
   if (localStorage.key('data')) {
     let data = localStorage.getItem('data');
     data = JSON.parse(data);
@@ -92,20 +91,6 @@ function getData() {
       }
     });
   }
-  */
-  fetch('http://localhost:3000/')
-  .then(res => res.json())
-  .then(data => {
-    data.forEach(item => {
-      let id = `${item.block}-${item.hour}`;
-      let currentDate = document.getElementById('current-date').innerText;
-      if  (item.date === currentDate) {
-        document.getElementById(id).style.background = item.color;
-      } else {
-        document.getElementById(id).style.background = 'white';
-      }
-    });
-  });
 }
 
 function addClickEventToHourBox() {
