@@ -78,28 +78,16 @@ function renderHourDigit(hour) {
 }
 
 function getData() {
-  /*
-  if (localStorage.key('data')) {
-    let data = localStorage.getItem('data');
-    data = JSON.parse(data);
-    data.forEach(item => {
-      let id = `${item.block}-${item.hour}`;
-      let currentDate = document.getElementById('current-date').innerText;
-      if  (item.date === currentDate) {
-        document.getElementById(id).style.background = item.color;
-      } else {
-        document.getElementById(id).style.background = 'white';
-      }
-    });
-  }
-  */
-  fetch('http://localhost:3000/')
+  InitHourBoxesColor();
+  let currentDate = document.getElementById('current-date').innerText;
+  let currentDateToSend = currentDate.replace('/', '-').replace('/', '-');
+  let urlBackEnd = 'http://localhost:3000/' + currentDateToSend;
+  fetch(urlBackEnd)
   .then(res => res.json())
   .then(data => {
     data.forEach(item => {
       let id = `${item.block}-${item.hour}`;
-      let currentDate = document.getElementById('current-date').innerText;
-      if  (item.date === currentDate) {
+      if  (item.date === currentDateToSend) {
         document.getElementById(id).style.background = item.color;
       } else {
         document.getElementById(id).style.background = 'white';
@@ -113,6 +101,14 @@ function addClickEventToHourBox() {
   divs.forEach(
     item => 
     item.addEventListener('click', () => hourBoxClickHandler(item))
+  );
+}
+
+function InitHourBoxesColor() {
+  let divs = document.querySelectorAll('.hour-box');
+  divs.forEach(
+    item => 
+    item.style.background = 'white'
   );
 }
 
