@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', init);
+const URL_BACKEND = 'http://localhost:3000/';
 
 function init() {
   document.getElementById('current-date').innerHTML = formatDate(new Date());
@@ -77,17 +78,20 @@ function renderHourDigit(hour) {
   return `0${hour}`.slice(-2);
 }
 
+function getCurrentDateBackendFormat() {
+  let currentDate = document.getElementById('current-date').innerText;
+  return currentDate.replace('/', '-').replace('/', '-');
+}
+
 function getData() {
   InitHourBoxesColor();
-  let currentDate = document.getElementById('current-date').innerText;
-  let currentDateToSend = currentDate.replace('/', '-').replace('/', '-');
-  let urlBackEnd = 'http://localhost:3000/' + currentDateToSend;
+  let urlBackEnd = URL_BACKEND + getCurrentDateBackendFormat();
   fetch(urlBackEnd)
   .then(res => res.json())
   .then(data => {
     data.forEach(item => {
       let id = `${item.block}-${item.hour}`;
-      if  (item.date === currentDateToSend) {
+      if  (item.date === getCurrentDateBackendFormat()) {
         document.getElementById(id).style.background = item.color;
       } else {
         document.getElementById(id).style.background = 'white';
@@ -118,7 +122,7 @@ function hourBoxClickHandler(div) {
     hour: div.id.split('-')[1],
     block: div.id.split('-')[0],
     color: div.style.background,
-    date: document.getElementById('current-date').innerText
+    date: getCurrentDateBackendFormat()
   };
   setData(hourBoxData);
 }
@@ -136,17 +140,12 @@ function switchColor(div) {
 }
 
 function setData(hourBoxData) {
-  let storage = [];
-  if (localStorage.key('data')) {
-    let data = localStorage.getItem('data');
-    storage = JSON.parse(data);
-  }
-  let filtredStorage = storage.filter(
-    item => !(item.hour === hourBoxData.hour && item.block === hourBoxData.block)
-  );
-  storage = [...filtredStorage];
-  if(hourBoxData.color !== 'white') {
-    storage.push(hourBoxData);
-  }
-  localStorage.setItem('data', JSON.stringify(storage));
+  fetch(URL_BACKEND, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(hourBoxData)
+  });
 }
