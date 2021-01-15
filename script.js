@@ -4,12 +4,7 @@ const URL_BACKEND = 'http://localhost:3000/';
 function init() {
   document.getElementById('current-date').innerHTML = formatDate(new Date());
 
-  document.getElementById('add-one-day').addEventListener('click', function() {
-    let currentDate = document.getElementById('current-date');
-    let newDate = addOneDay(currentDate.innerText);
-    currentDate.innerText = formatDate(newDate);
-    getData();
-  });
+  document.getElementById('add-one-day').addEventListener('click', addClickHandler);
 
   document.getElementById('substract-one-day').addEventListener('click', substractClickHandler);
 
@@ -22,6 +17,13 @@ function init() {
   getData();
 
   addClickEventToHourBox();
+}
+
+function addClickHandler() {
+  let currentDate = document.getElementById('current-date');
+  let newDate = addOneDay(currentDate.innerText);
+  currentDate.innerText = formatDate(newDate);
+  getData();
 }
 
 function substractClickHandler() {
@@ -93,8 +95,6 @@ function getData() {
       let id = `${item.block}-${item.hour}`;
       if  (item.date === getCurrentDateBackendFormat()) {
         document.getElementById(id).style.background = item.color;
-      } else {
-        document.getElementById(id).style.background = 'white';
       }
     });
   });
