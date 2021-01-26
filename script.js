@@ -147,5 +147,17 @@ function setData(hourBoxData) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(hourBoxData)
-  });
+  })
+  .then(res => res.json())
+  .then(data => {
+    let successMessage = document.getElementById('success-message');
+    let failedMessage = document.getElementById('failed-message');
+    if(data.success) {
+      successMessage.style.display = 'block';
+      failedMessage.style.display = 'none';
+    } else {
+      successMessage.style.display = 'none';
+      failedMessage.style.display = 'block';
+    }
+  })
 }
