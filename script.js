@@ -159,5 +159,9 @@ function setData(hourBoxData) {
       successMessage.style.display = 'none';
       failedMessage.style.display = 'block';
     }
+    setTimeout(() => {
+      successMessage.style.display = 'none';
+      failedMessage.style.display = 'none';
+    }, 2000);
   })
 }
