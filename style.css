@@ -64,14 +64,17 @@ h1 {
   width: 100px;
   font-weight: bold;
   padding: 10px;
+  position: absolute;
+  border: 2px solid;
+  border-radius: 5px;
 }
 
 #success-message {
   color: green;
-  border: 2px solid green;
+  border-color: green;
 }
 
 #failed-message {
   color: red;
-  border: 2px solid red;
+  border-color: red;
 }
