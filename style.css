@@ -61,4 +61,17 @@ h1 {
 
 #success-message, #failed-message {
   display: none;
+  width: 100px;
+  font-weight: bold;
+  padding: 10px;
+}
+
+#success-message {
+  color: green;
+  border: 2px solid green;
+}
+
+#failed-message {
+  color: red;
+  border: 2px solid red;
 }
